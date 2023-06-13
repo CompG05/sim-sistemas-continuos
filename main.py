@@ -13,17 +13,18 @@ def main():
     parser.add_argument('f_entrada', metavar='f_entrada', help='Función de entrada', type=str, choices=['constante_20', 'constante_100', 'oscilante'])
     parser.add_argument('-p', '--paso', help='Paso de simulación', type=float, default=0.1)
     parser.add_argument('-t', '--tiempo', help='Tiempo de simulación', type=float, default=200)
-    parser.add_argument('-i', '--inicial', help='Valor inicial', type=float, default=1000)
+    parser.add_argument('-i', '--inicial', help='Valor inicial', type=float, default=500)
+    parser.add_argument('-k', '--factor', help='Factor de salida', type=float, default=1)
     args = parser.parse_args()
     f_entrada = funciones_entrada[args.f_entrada]
 
     # Simulación
-    e = Euler(dh, args.inicial, args.paso, f_entrada)
+    e = Euler(dh, args.inicial, args.paso, f_entrada, args.factor)
     valores = e.simular(args.tiempo)
 
     # Cálculo de entradas y salidas para graficar
     entradas = [f_entrada(0, valores[:i]) for i in range(1, len(valores))]
-    salidas = [f_salida(0, v) for v in valores]
+    salidas = [f_salida(0, v, args.factor) for v in valores]
     t = [i * args.paso for i in range(len(valores))]
 
     # Graficar

@@ -3,14 +3,14 @@ import math
 from constantes import *
 
 
-def dh(t, h_ant, f_entrada):
+def dh(t, h_ant, f_entrada, factor_salida):
     """Función de la derivada de la altura del líquido en el tanque.
     Args:
     - t: tiempo
     - h_ant: lista de alturas anteriores
     - f_entrada: función que calcula el flujo de entrada
     """
-    last_h = (1 / A) * f_entrada(t, h_ant) - (1 / A) * f_salida(t, h_ant[-1])
+    last_h = (1 / A) * f_entrada(t, h_ant) - (1 / A) * f_salida(t, h_ant[-1], factor_salida)
     return last_h
 
 
@@ -53,11 +53,11 @@ def f_entrada_constante_20(t, h_ant):
     return 20
 
 
-def f_salida(t, h_ant):
+def f_salida(t, h_ant, factor_salida):
     """Función que calcula el flujo de salida en función de la altura.
     Depende de la constante K y de la altura del líquido.
     """
-    return K * math.sqrt(g * h_ant)
+    return factor_salida * math.sqrt(g * h_ant)
 
 
 funciones_entrada = {
