@@ -13,22 +13,34 @@ class Euler:
         self.q_0 = q_0
         self.paso = paso
         self.f_entrada = f_entrada
+        self.y_estable = -1
+        self.t_estable = -1
         self.K = K
 
-    def simular(self, t_limite):
+    def simular(self, t_limite=None):
         """Simula el comportamiento del tanque de agua utilizando el método de Euler.
         Args:
             - t_limite: tiempo máximo de simulación
-        Returna una lista con los valores de la variable q en cada instante de tiempo (dependiendo del paso).
+        Retorna una lista con los valores de la variable q en cada instante de tiempo (dependiendo del paso).
         """
+        t_limit_specified = t_limite is not None
+        t_limite = t_limite or float("inf")
         t = 0
         valores = [self.q_0]
         i = 0
+        contador_estabilizacion = 0
 
         while t <= t_limite:
             t += self.paso
             # Agregar a la lista de valores el valor de q(t)
             valores.append(valores[i] + self.paso * self.dq(t, valores, self.f_entrada, self.K))
+            contador_estabilizacion = contador_estabilizacion + 1 if abs(valores[i + 1] - valores[i]) < 0.01 else 0
+            if contador_estabilizacion == CONT_ESTAB:
+                self.t_estable = i * self.paso
+                self.y_estable = valores[i + 1]
+                if not t_limit_specified:
+                    break
+
             i += 1
 
         return valores
