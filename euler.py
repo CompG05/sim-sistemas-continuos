@@ -1,3 +1,6 @@
+from constantes import CONT_ESTAB
+
+
 class Euler:
     """Clase que implementa el método de Euler para la simulación del tanque de agua."""
     def __init__(self, dq, q_0, paso, f_entrada, K):

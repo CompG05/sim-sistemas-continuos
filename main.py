@@ -12,9 +12,9 @@ def main():
     parser = argparse.ArgumentParser(description='Simulación de un tanque de agua', epilog='Simulación 2023')
     parser.add_argument('f_entrada', metavar='f_entrada', help='Función de entrada', type=str, choices=['constante_20', 'constante_100', 'oscilante'])
     parser.add_argument('-p', '--paso', help='Paso de simulación', type=float, default=0.1)
-    parser.add_argument('-t', '--tiempo', help='Tiempo de simulación', type=float, default=200)
-    parser.add_argument('-i', '--inicial', help='Valor inicial', type=float, default=500)
-    parser.add_argument('-k', '--factor', help='Factor de salida', type=float, default=1)
+    parser.add_argument('-t', '--tiempo', help='Tiempo de simulación', type=float)
+    parser.add_argument('-i', '--inicial', help='Valor inicial', type=float, default=h_0)
+    parser.add_argument('-k', '--factor', help='Factor de salida', type=float, default=K)
     args = parser.parse_args()
     f_entrada = funciones_entrada[args.f_entrada]
 
