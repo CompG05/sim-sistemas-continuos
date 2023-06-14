@@ -25,8 +25,11 @@ class Euler:
         Args:
             - t_limite: tiempo máximo de simulación
         Retorna una lista con los valores de la variable q en cada instante de tiempo (dependiendo del paso).
+        En caso de que no se pase el parámetro t_limite, la simulación continuará hasta el punto de estabilización.
+        Se considera que una función encuentra un punto de estabilización si se encuentran 1000 números que solo
+        difieran en 0,01.
         """
-        t_limit_specified = t_limite is not None
+        t_limite_especificado = t_limite is not None
         t_limite = t_limite or float("inf")
         t = 0
         valores = [self.q_0]
@@ -41,7 +44,7 @@ class Euler:
             if contador_estabilizacion == CONT_ESTAB:
                 self.t_estable = i * self.paso
                 self.y_estable = valores[i + 1]
-                if not t_limit_specified:
+                if not t_limite_especificado:
                     break
 
             i += 1
