@@ -33,7 +33,7 @@ def main():
     plt.plot(t[1:], entradas[:], label='f_entrada(t)')
     plt.legend()
 
-    print(f"La simulación se estabilizó en:\n\t(t: {e.t_estable}, y: {e.y_estable})")
+    print(f"La simulación se estabilizó en:\n\t(t: {e.t_estable}, h(t): {e.y_estable})")
     plt.show()
 
 
